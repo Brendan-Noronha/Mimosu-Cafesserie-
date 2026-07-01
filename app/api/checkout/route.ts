@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import Stripe from "stripe";
 
 export const dynamic = "force-dynamic";
-
-function getStripe() {
-  return new Stripe(process.env.STRIPE_SECRET_KEY!);
-}
 
 export async function POST(req: NextRequest) {
   const { jobPosting, candidateBackground, targetRole, email } =
@@ -18,34 +13,49 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const session = await getStripe().checkout.sessions.create({
-    payment_method_types: ["card"],
-    mode: "payment",
-    customer_email: email,
-    line_items: [
-      {
-        price_data: {
-          currency: "usd",
-          product_data: {
-            name: "Career Launch Pack",
-            description:
-              "AI-tailored resume, cover letter, and LinkedIn About section — delivered to your email within minutes.",
-          },
-          unit_amount: 1700, // $17.00
-        },
-        quantity: 1,
-      },
-    ],
-    metadata: {
-      jobPosting: jobPosting.slice(0, 500),
-      jobPostingFull: jobPosting,
-      candidateBackground,
-      targetRole,
-      email,
+  const response = await fetch("https://api.lemonsqueezy.com/v1/checkouts", {
+    method: "POST",
+    headers: {
+      Accept: "application/vnd.api+json",
+      "Content-Type": "application/vnd.api+json",
+      Authorization: `Bearer ${process.env.LEMONSQUEEZY_API_KEY}`,
     },
-    success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+    body: JSON.stringify({
+      data: {
+        type: "checkouts",
+        attributes: {
+          checkout_data: {
+            email,
+            custom: { jobPosting, candidateBackground, targetRole, email },
+          },
+          product_options: {
+            redirect_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success`,
+          },
+        },
+        relationships: {
+          store: {
+            data: { type: "stores", id: process.env.LEMONSQUEEZY_STORE_ID },
+          },
+          variant: {
+            data: {
+              type: "variants",
+              id: process.env.LEMONSQUEEZY_VARIANT_ID,
+            },
+          },
+        },
+      },
+    }),
   });
 
-  return NextResponse.json({ url: session.url });
+  const json = await response.json();
+  const url = json?.data?.attributes?.url;
+
+  if (!url) {
+    return NextResponse.json(
+      { error: "Failed to create checkout" },
+      { status: 500 }
+    );
+  }
+
+  return NextResponse.json({ url });
 }
