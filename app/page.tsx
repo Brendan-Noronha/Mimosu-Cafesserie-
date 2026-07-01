@@ -1,137 +1,6 @@
-"use client";
-
-import { useState } from "react";
+const GUMROAD_URL = "https://brendanwave00.gumroad.com/l/olbun";
 
 export default function Home() {
-  const [step, setStep] = useState<"landing" | "order">("landing");
-  const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({
-    email: "",
-    targetRole: "",
-    jobPosting: "",
-    candidateBackground: "",
-  });
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      const { url, error } = await res.json();
-      if (error) throw new Error(error);
-      window.location.href = url;
-    } catch {
-      alert("Something went wrong. Please try again.");
-      setLoading(false);
-    }
-  };
-
-  if (step === "order") {
-    return (
-      <main className="min-h-screen bg-slate-50 flex items-start justify-center py-16 px-4">
-        <div className="w-full max-w-2xl">
-          <button
-            onClick={() => setStep("landing")}
-            className="text-slate-500 text-sm mb-6 hover:text-slate-800 flex items-center gap-1"
-          >
-            ← Back
-          </button>
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
-            <h2 className="text-2xl font-bold text-slate-900 mb-1">
-              Build your Career Launch Pack
-            </h2>
-            <p className="text-slate-500 mb-8 text-sm">
-              Fill in the details below. Your resume, cover letter, and LinkedIn
-              About section will be delivered to your email within minutes.
-            </p>
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
-                  Your email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="you@example.com"
-                  className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
-                  Target role / job title
-                </label>
-                <input
-                  type="text"
-                  name="targetRole"
-                  required
-                  value={form.targetRole}
-                  onChange={handleChange}
-                  placeholder="e.g. Senior Product Manager at Stripe"
-                  className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
-                  Job posting
-                  <span className="text-slate-400 font-normal ml-1">
-                    (paste the full posting)
-                  </span>
-                </label>
-                <textarea
-                  name="jobPosting"
-                  required
-                  value={form.jobPosting}
-                  onChange={handleChange}
-                  rows={6}
-                  placeholder="Paste the entire job description here..."
-                  className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
-                  Your background
-                  <span className="text-slate-400 font-normal ml-1">
-                    (paste your current resume or describe your experience)
-                  </span>
-                </label>
-                <textarea
-                  name="candidateBackground"
-                  required
-                  value={form.candidateBackground}
-                  onChange={handleChange}
-                  rows={8}
-                  placeholder="Paste your current resume or describe your experience, skills, and education..."
-                  className="w-full border border-slate-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-                />
-              </div>
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-semibold py-3 rounded-xl text-sm transition-colors"
-              >
-                {loading ? "Redirecting to payment..." : "Pay $17 → Get my pack"}
-              </button>
-              <p className="text-center text-xs text-slate-400">
-                Secured by Stripe · Delivered to your email within minutes
-              </p>
-            </form>
-          </div>
-        </div>
-      </main>
-    );
-  }
-
   return (
     <main className="min-h-screen bg-slate-950 text-white">
       <section className="max-w-4xl mx-auto px-4 pt-24 pb-16 text-center">
@@ -147,12 +16,12 @@ export default function Home() {
           tailor your resume, optimize for ATS, and polish every word.
           Your complete application pack lands in your inbox — fast.
         </p>
-        <button
-          onClick={() => setStep("order")}
-          className="bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg px-10 py-4 rounded-2xl transition-colors shadow-lg shadow-blue-500/20"
+        <a
+          href={GUMROAD_URL}
+          className="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg px-10 py-4 rounded-2xl transition-colors shadow-lg shadow-blue-500/20"
         >
           Get my Career Launch Pack — $17
-        </button>
+        </a>
         <p className="text-slate-600 text-sm mt-4">
           One-time payment · No subscription · Delivered to your email
         </p>
@@ -217,12 +86,12 @@ export default function Home() {
       <section className="max-w-4xl mx-auto px-4 py-20 text-center">
         <h2 className="text-3xl font-bold mb-4">Ready to apply smarter?</h2>
         <p className="text-slate-400 mb-8">Your tailored pack will be in your inbox within minutes.</p>
-        <button
-          onClick={() => setStep("order")}
-          className="bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg px-10 py-4 rounded-2xl transition-colors"
+        <a
+          href={GUMROAD_URL}
+          className="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg px-10 py-4 rounded-2xl transition-colors"
         >
           Get my Career Launch Pack — $17
-        </button>
+        </a>
       </section>
 
       <footer className="border-t border-slate-800 text-center py-8 text-slate-600 text-xs">
