@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "mkdir -p .vercel && cp -r .next/output .vercel/",
     "start": "next start",
     "lint": "eslint"
   },
