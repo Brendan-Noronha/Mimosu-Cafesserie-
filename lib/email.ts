@@ -5,6 +5,18 @@ function getResend() {
   return new Resend(process.env.RESEND_API_KEY);
 }
 
+export async function sendLeadEmail(to: string, subject: string, body: string): Promise<boolean> {
+  if (!process.env.RESEND_API_KEY || !to) return false;
+
+  await getResend().emails.send({
+    from: process.env.RESEND_FROM_EMAIL || "Mimosu <onboarding@resend.dev>",
+    to,
+    subject,
+    text: body,
+  });
+  return true;
+}
+
 export async function sendOnboardingNotification(record: OnboardingRecord) {
   if (!process.env.RESEND_API_KEY || !process.env.ADMIN_NOTIFICATION_EMAIL) return;
 
@@ -53,6 +65,7 @@ export async function sendOnboardingNotification(record: OnboardingRecord) {
   <h2>Digital Assets</h2>
   <table>
     <tr><td class="label">Facebook Page</td><td>${record.facebookPage}</td></tr>
+    <tr><td class="label">Facebook Page ID</td><td>${record.metaPageId || "—"}</td></tr>
     <tr><td class="label">Instagram</td><td>${record.instagram || "—"}</td></tr>
     <tr><td class="label">Business Manager ID</td><td>${record.metaBusinessManagerId}</td></tr>
     <tr><td class="label">Ad Account ID</td><td>${record.adAccountId}</td></tr>

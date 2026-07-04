@@ -31,6 +31,7 @@ export async function submitOnboarding(
     previousAdsRun: formData.get("previousAdsRun"),
     previousAdsDetails: formData.get("previousAdsDetails"),
     facebookPage: formData.get("facebookPage"),
+    metaPageId: formData.get("metaPageId"),
     instagram: formData.get("instagram"),
     metaBusinessManagerId: formData.get("metaBusinessManagerId"),
     adAccountId: formData.get("adAccountId"),

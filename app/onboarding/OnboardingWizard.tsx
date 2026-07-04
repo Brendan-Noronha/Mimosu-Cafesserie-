@@ -149,6 +149,7 @@ export default function OnboardingWizard() {
     fd.set("previousAdsRun", form.previousAdsRun);
     fd.set("previousAdsDetails", form.previousAdsDetails);
     fd.set("facebookPage", form.facebookPage);
+    fd.set("metaPageId", form.metaPageId);
     fd.set("instagram", form.instagram);
     fd.set("metaBusinessManagerId", form.metaBusinessManagerId);
     fd.set("adAccountId", form.adAccountId);
@@ -389,6 +390,16 @@ export default function OnboardingWizard() {
                 className={inputClass}
                 value={form.facebookPage}
                 onChange={(e) => update("facebookPage", e.target.value)}
+              />
+            </Field>
+            <Field
+              label="Facebook Page ID"
+              hint="Optional — numeric ID from Meta Business Suite, used to route incoming leads to your account"
+            >
+              <input
+                className={inputClass}
+                value={form.metaPageId}
+                onChange={(e) => update("metaPageId", e.target.value)}
               />
             </Field>
             <Field label="Instagram handle or URL" hint="Optional">

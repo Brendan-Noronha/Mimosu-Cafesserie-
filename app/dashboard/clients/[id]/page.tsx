@@ -85,6 +85,7 @@ export default async function ClientDetailPage({ params }: { params: Promise<{ i
           <h2 className="font-bold text-neutral-900 mb-4">Digital Assets</h2>
           <dl className="space-y-2.5 text-sm">
             <Row label="Facebook Page" value={client.facebookPage} />
+            <Row label="Facebook Page ID" value={client.metaPageId || "—"} />
             <Row label="Instagram" value={client.instagram || "—"} />
             <Row label="Business Manager ID" value={client.metaBusinessManagerId} />
             <Row label="Ad Account ID" value={client.adAccountId} />

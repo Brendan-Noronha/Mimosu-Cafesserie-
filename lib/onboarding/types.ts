@@ -83,6 +83,7 @@ export interface OnboardingFormState {
 
   // Step 4 — Digital Assets
   facebookPage: string;
+  metaPageId: string;
   instagram: string;
   metaBusinessManagerId: string;
   adAccountId: string;
@@ -117,6 +118,7 @@ export const emptyOnboardingForm: OnboardingFormState = {
   previousAdsRun: "",
   previousAdsDetails: "",
   facebookPage: "",
+  metaPageId: "",
   instagram: "",
   metaBusinessManagerId: "",
   adAccountId: "",

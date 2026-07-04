@@ -20,6 +20,8 @@ const badgeTones = {
   orange: "bg-orange-100 text-orange-600",
   green: "bg-emerald-100 text-emerald-600",
   neutral: "bg-neutral-100 text-neutral-500",
+  red: "bg-red-100 text-red-600",
+  blue: "bg-blue-100 text-blue-600",
 } as const;
 
 export function Badge({

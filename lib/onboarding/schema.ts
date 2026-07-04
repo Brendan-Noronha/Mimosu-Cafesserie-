@@ -35,6 +35,7 @@ export const onboardingSchema = z.object({
   previousAdsDetails: z.string().trim().optional().default(""),
 
   facebookPage: z.string().trim().min(1, "Facebook Page URL is required"),
+  metaPageId: z.string().trim().optional().default(""),
   instagram: z.string().trim().optional().default(""),
   metaBusinessManagerId: z.string().trim().min(1, "Meta Business Manager ID is required"),
   adAccountId: z.string().trim().min(1, "Ad Account ID is required"),
