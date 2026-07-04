@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Career Launch Pack — AI-Tailored Resume, Cover Letter & LinkedIn",
+  title: "Mimosu — Meta Ads Lead Generation for Real Estate",
   description:
-    "Paste a job posting and your background. Get a tailored resume, cover letter, and LinkedIn About section in minutes.",
+    "AI-powered Meta Ads agency helping real estate agents, brokerages, and developers generate qualified buyer and seller leads.",
 };
 
 export default function RootLayout({

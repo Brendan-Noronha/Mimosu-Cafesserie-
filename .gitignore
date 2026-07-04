@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local-only onboarding data fallback (no Blob token configured)
+/.data
+/public/uploads
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

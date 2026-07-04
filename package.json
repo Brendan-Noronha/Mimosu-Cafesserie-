@@ -1,5 +1,5 @@
 {
-  "name": "career-launch-pack",
+  "name": "mimosu-cafesserie",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,13 +10,17 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.109.0",
+    "@anthropic-ai/sdk": "^0.110.0",
+    "@vercel/blob": "^2.5.0",
     "@vercel/build-utils": "^13.32.2",
     "@vercel/next": "^4.20.2",
+    "lucide-react": "^1.23.0",
     "next": "16.2.9",
+    "razorpay": "^2.9.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "resend": "^6.16.0"
+    "resend": "^6.16.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
