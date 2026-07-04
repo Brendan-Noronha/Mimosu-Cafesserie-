@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function OnboardingPage() {
   return (
-    <main className="min-h-screen bg-slate-950">
+    <main className="min-h-screen bg-neutral-50">
       <OnboardingWizard />
     </main>
   );

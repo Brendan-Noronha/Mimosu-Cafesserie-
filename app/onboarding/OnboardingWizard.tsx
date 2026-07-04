@@ -2,6 +2,7 @@
 
 import { useState, startTransition } from "react";
 import { useActionState } from "react";
+import { Card } from "@/components/ui";
 import { submitOnboarding, type SubmitOnboardingState } from "./actions";
 import {
   ACCESS_ITEMS,
@@ -40,16 +41,16 @@ function Field({
 }) {
   return (
     <label className="block mb-5">
-      <span className="block text-sm font-medium text-slate-200 mb-1.5">{label}</span>
+      <span className="block text-sm font-medium text-neutral-700 mb-1.5">{label}</span>
       {children}
-      {hint && <span className="block text-xs text-slate-500 mt-1">{hint}</span>}
-      {error && <span className="block text-xs text-red-400 mt-1">{error}</span>}
+      {hint && <span className="block text-xs text-neutral-400 mt-1">{hint}</span>}
+      {error && <span className="block text-xs text-red-500 mt-1">{error}</span>}
     </label>
   );
 }
 
 const inputClass =
-  "w-full rounded-lg bg-slate-900 border border-slate-700 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500/60 focus:border-blue-500";
+  "w-full rounded-xl bg-neutral-50 border border-neutral-200 px-3.5 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-4 focus:ring-neutral-900/5 focus:border-neutral-300";
 
 export default function OnboardingWizard() {
   const [step, setStep] = useState(0);
@@ -174,14 +175,16 @@ export default function OnboardingWizard() {
   if (actionState.status === "success") {
     return (
       <div className="max-w-xl mx-auto text-center py-24 px-4">
-        <div className="text-5xl mb-6">✅</div>
-        <h1 className="text-2xl font-bold text-white mb-3">You&apos;re all set</h1>
-        <p className="text-slate-400">
+        <div className="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl mx-auto mb-6">
+          ✓
+        </div>
+        <h1 className="text-2xl font-bold text-neutral-900 mb-3">You&apos;re all set</h1>
+        <p className="text-neutral-500">
           Thanks, {form.contactName.split(" ")[0] || "there"} — we&apos;ve received {form.businessName}&apos;s
           onboarding details. Our team will review your access and reach out shortly to confirm your
           campaign strategy.
         </p>
-        <p className="text-slate-600 text-xs mt-6">Reference ID: {actionState.recordId}</p>
+        <p className="text-neutral-400 text-xs mt-6">Reference ID: {actionState.recordId}</p>
       </div>
     );
   }
@@ -189,8 +192,8 @@ export default function OnboardingWizard() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-14">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-white mb-1">Client Onboarding</h1>
-        <p className="text-slate-400 text-sm">
+        <h1 className="text-2xl font-bold text-neutral-900 mb-1">Client Onboarding</h1>
+        <p className="text-neutral-500 text-sm">
           Tell us about your business so we can build your Meta Ads lead generation strategy.
         </p>
       </div>
@@ -199,10 +202,10 @@ export default function OnboardingWizard() {
         {STEPS.map((label, i) => (
           <div key={label} className="flex-1">
             <div
-              className={`h-1.5 rounded-full ${i <= step ? "bg-blue-500" : "bg-slate-800"}`}
+              className={`h-1.5 rounded-full ${i <= step ? "bg-neutral-900" : "bg-neutral-200"}`}
             />
             <span
-              className={`block text-[11px] mt-1.5 ${i === step ? "text-blue-400" : "text-slate-600"}`}
+              className={`block text-[11px] mt-1.5 ${i === step ? "text-neutral-900 font-medium" : "text-neutral-400"}`}
             >
               {label}
             </span>
@@ -210,7 +213,7 @@ export default function OnboardingWizard() {
         ))}
       </div>
 
-      <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 sm:p-8">
+      <Card className="p-6 sm:p-8">
         {step === 0 && (
           <>
             <Field label="Business name *">
@@ -273,12 +276,12 @@ export default function OnboardingWizard() {
             <Field label="Services you offer *">
               <div className="grid grid-cols-2 gap-2">
                 {SERVICES_OFFERED.map((s) => (
-                  <label key={s.value} className="flex items-center gap-2 text-sm text-slate-300">
+                  <label key={s.value} className="flex items-center gap-2 text-sm text-neutral-700">
                     <input
                       type="checkbox"
                       checked={form.services.includes(s.value)}
                       onChange={() => toggleListValue("services", s.value)}
-                      className="accent-blue-500"
+                      className="accent-neutral-900"
                     />
                     {s.label}
                   </label>
@@ -288,12 +291,12 @@ export default function OnboardingWizard() {
             <Field label="Campaign goals *">
               <div className="grid grid-cols-2 gap-2">
                 {CAMPAIGN_GOALS.map((g) => (
-                  <label key={g.value} className="flex items-center gap-2 text-sm text-slate-300">
+                  <label key={g.value} className="flex items-center gap-2 text-sm text-neutral-700">
                     <input
                       type="checkbox"
                       checked={form.goals.includes(g.value)}
                       onChange={() => toggleListValue("goals", g.value)}
-                      className="accent-blue-500"
+                      className="accent-neutral-900"
                     />
                     {g.label}
                   </label>
@@ -353,13 +356,13 @@ export default function OnboardingWizard() {
             <Field label="Have you run ads before? *">
               <div className="flex gap-4">
                 {["yes", "no"].map((v) => (
-                  <label key={v} className="flex items-center gap-2 text-sm text-slate-300">
+                  <label key={v} className="flex items-center gap-2 text-sm text-neutral-700">
                     <input
                       type="radio"
                       name="previousAdsRun"
                       checked={form.previousAdsRun === v}
                       onChange={() => update("previousAdsRun", v as "yes" | "no")}
-                      className="accent-blue-500"
+                      className="accent-neutral-900"
                     />
                     {v === "yes" ? "Yes" : "No"}
                   </label>
@@ -443,7 +446,7 @@ export default function OnboardingWizard() {
               <input
                 type="file"
                 accept="image/*"
-                className="text-sm text-slate-300"
+                className="text-sm text-neutral-600"
                 onChange={(e) => setFiles((p) => ({ ...p, logo: e.target.files?.[0] ?? null }))}
               />
             </Field>
@@ -451,7 +454,7 @@ export default function OnboardingWizard() {
               <Field label="Primary color">
                 <input
                   type="color"
-                  className="h-10 w-full rounded-lg border border-slate-700 bg-slate-900"
+                  className="h-10 w-full rounded-xl border border-neutral-200 bg-neutral-50"
                   value={form.primaryColor}
                   onChange={(e) => update("primaryColor", e.target.value)}
                 />
@@ -459,7 +462,7 @@ export default function OnboardingWizard() {
               <Field label="Secondary color">
                 <input
                   type="color"
-                  className="h-10 w-full rounded-lg border border-slate-700 bg-slate-900"
+                  className="h-10 w-full rounded-xl border border-neutral-200 bg-neutral-50"
                   value={form.secondaryColor}
                   onChange={(e) => update("secondaryColor", e.target.value)}
                 />
@@ -467,7 +470,7 @@ export default function OnboardingWizard() {
               <Field label="Accent color">
                 <input
                   type="color"
-                  className="h-10 w-full rounded-lg border border-slate-700 bg-slate-900"
+                  className="h-10 w-full rounded-xl border border-neutral-200 bg-neutral-50"
                   value={form.accentColor}
                   onChange={(e) => update("accentColor", e.target.value)}
                 />
@@ -476,7 +479,7 @@ export default function OnboardingWizard() {
             <Field label="Brand guidelines" hint="Optional — PDF or doc">
               <input
                 type="file"
-                className="text-sm text-slate-300"
+                className="text-sm text-neutral-600"
                 onChange={(e) =>
                   setFiles((p) => ({ ...p, brandGuidelines: e.target.files?.[0] ?? null }))
                 }
@@ -487,7 +490,7 @@ export default function OnboardingWizard() {
                 type="file"
                 accept="image/*,video/*"
                 multiple
-                className="text-sm text-slate-300"
+                className="text-sm text-neutral-600"
                 onChange={(e) =>
                   setFiles((p) => ({ ...p, creatives: Array.from(e.target.files ?? []) }))
                 }
@@ -503,11 +506,11 @@ export default function OnboardingWizard() {
                 {ACCESS_ITEMS.map((item) => (
                   <div
                     key={item.key}
-                    className="flex items-center justify-between gap-4 bg-slate-950/50 border border-slate-800 rounded-lg px-3.5 py-2.5"
+                    className="flex items-center justify-between gap-4 bg-neutral-50 border border-neutral-100 rounded-xl px-3.5 py-2.5"
                   >
-                    <span className="text-sm text-slate-300">{item.label}</span>
+                    <span className="text-sm text-neutral-700">{item.label}</span>
                     <select
-                      className="rounded-md bg-slate-900 border border-slate-700 px-2 py-1.5 text-xs text-white"
+                      className="rounded-lg bg-white border border-neutral-200 px-2 py-1.5 text-xs text-neutral-900"
                       value={form.access[item.key]}
                       onChange={(e) => updateAccess(item.key, e.target.value)}
                     >
@@ -529,12 +532,12 @@ export default function OnboardingWizard() {
                 onChange={(e) => update("signatureName", e.target.value)}
               />
             </Field>
-            <label className="flex items-start gap-2 text-sm text-slate-300">
+            <label className="flex items-start gap-2 text-sm text-neutral-700">
               <input
                 type="checkbox"
                 checked={form.agreeToTerms}
                 onChange={(e) => update("agreeToTerms", e.target.checked)}
-                className="accent-blue-500 mt-0.5"
+                className="accent-neutral-900 mt-0.5"
               />
               <span>
                 I confirm the information provided is accurate and I agree to grant the access above
@@ -545,7 +548,7 @@ export default function OnboardingWizard() {
         )}
 
         {(stepError || (actionState.status === "error" && actionState.errors)) && (
-          <div className="mt-5 rounded-lg bg-red-500/10 border border-red-500/20 px-3.5 py-2.5 text-sm text-red-300">
+          <div className="mt-5 rounded-xl bg-red-50 border border-red-100 px-3.5 py-2.5 text-sm text-red-500">
             {stepError ?? "Please check the highlighted fields and try again."}
           </div>
         )}
@@ -555,7 +558,7 @@ export default function OnboardingWizard() {
             type="button"
             onClick={back}
             disabled={step === 0}
-            className="px-5 py-2.5 rounded-lg text-sm font-medium text-slate-400 disabled:opacity-30 hover:text-white transition-colors"
+            className="px-5 py-2.5 rounded-full text-sm font-medium text-neutral-400 disabled:opacity-30 hover:text-neutral-900 transition-colors"
           >
             Back
           </button>
@@ -563,7 +566,7 @@ export default function OnboardingWizard() {
             <button
               type="button"
               onClick={next}
-              className="px-6 py-2.5 rounded-lg text-sm font-bold bg-blue-600 hover:bg-blue-500 text-white transition-colors"
+              className="px-6 py-2.5 rounded-full text-sm font-bold bg-neutral-900 hover:bg-neutral-800 text-white transition-colors"
             >
               Continue
             </button>
@@ -572,13 +575,13 @@ export default function OnboardingWizard() {
               type="button"
               onClick={handleSubmit}
               disabled={pending}
-              className="px-6 py-2.5 rounded-lg text-sm font-bold bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white transition-colors"
+              className="px-6 py-2.5 rounded-full text-sm font-bold bg-neutral-900 hover:bg-neutral-800 disabled:opacity-50 text-white transition-colors"
             >
               {pending ? "Submitting…" : "Submit onboarding"}
             </button>
           )}
         </div>
-      </div>
+      </Card>
     </div>
   );
 }

@@ -138,6 +138,17 @@ export const emptyOnboardingForm: OnboardingFormState = {
   signatureName: "",
 };
 
+export function isWithinDays(isoDate: string, days: number): boolean {
+  return Date.now() - new Date(isoDate).getTime() < days * 24 * 60 * 60 * 1000;
+}
+
+export function labelFor<T extends readonly { value: string; label: string }[]>(
+  list: T,
+  value: string,
+): string {
+  return list.find((item) => item.value === value)?.label ?? value;
+}
+
 export interface OnboardingRecord extends Omit<OnboardingFormState, "access"> {
   id: string;
   submittedAt: string;

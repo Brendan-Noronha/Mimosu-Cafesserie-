@@ -54,7 +54,12 @@ export async function saveOnboardingRecord(record: OnboardingRecord): Promise<vo
   await writeFile(path.join(LOCAL_DATA_DIR, `${record.id}.json`), json);
 }
 
-// Used by the internal ops dashboard (phase 2) to list submitted clients.
+export async function getOnboardingRecord(id: string): Promise<OnboardingRecord | null> {
+  const records = await listOnboardingRecords();
+  return records.find((r) => r.id === id) ?? null;
+}
+
+// Used by the internal ops dashboard to list submitted clients.
 export async function listOnboardingRecords(): Promise<OnboardingRecord[]> {
   if (hasBlobToken) {
     const { list } = await import("@vercel/blob");
