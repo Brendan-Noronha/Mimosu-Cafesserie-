@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutGrid, Users, Megaphone, Target, KanbanSquare, FileBarChart } from "lucide-react";
+import { LayoutGrid, Users, Megaphone, Target, KanbanSquare, FileBarChart, Receipt } from "lucide-react";
 
 const NAV = [
   { href: "/dashboard", label: "Overview", icon: LayoutGrid },
@@ -10,6 +10,7 @@ const NAV = [
   { href: "/dashboard/campaigns", label: "Campaigns", icon: Megaphone },
   { href: "/dashboard/leads", label: "Leads", icon: Target },
   { href: "/dashboard/crm", label: "CRM", icon: KanbanSquare },
+  { href: "/dashboard/invoices", label: "Invoices", icon: Receipt },
   { href: "/dashboard/reports", label: "Reports", icon: FileBarChart },
 ];
 
