@@ -186,6 +186,13 @@ export default function OnboardingWizard() {
           campaign strategy.
         </p>
         <p className="text-neutral-400 text-xs mt-6">Reference ID: {actionState.recordId}</p>
+        <p className="text-neutral-400 text-xs mt-2">
+          You&apos;ll be able to log in at{" "}
+          <a href="/login" className="underline">
+            /login
+          </a>{" "}
+          with this email once your account is active.
+        </p>
       </div>
     );
   }

@@ -71,7 +71,10 @@ export default function Home() {
       </section>
 
       <footer className="border-t border-neutral-200 text-center py-8 text-neutral-400 text-xs">
-        Meta Ads lead generation for real estate businesses
+        Meta Ads lead generation for real estate businesses ·{" "}
+        <Link href="/login" className="underline hover:text-neutral-600">
+          Client login
+        </Link>
       </footer>
     </main>
   );

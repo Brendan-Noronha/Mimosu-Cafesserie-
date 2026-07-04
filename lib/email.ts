@@ -17,6 +17,18 @@ export async function sendLeadEmail(to: string, subject: string, body: string): 
   return true;
 }
 
+export async function sendMagicLinkEmail(to: string, url: string): Promise<boolean> {
+  if (!process.env.RESEND_API_KEY || !to) return false;
+
+  await getResend().emails.send({
+    from: process.env.RESEND_FROM_EMAIL || "Mimosu <onboarding@resend.dev>",
+    to,
+    subject: "Your Mimosu client portal login link",
+    text: `Click to log in to your client portal: ${url}\n\nThis link expires in 15 minutes. If you didn't request this, you can ignore this email.`,
+  });
+  return true;
+}
+
 export async function sendOnboardingNotification(record: OnboardingRecord) {
   if (!process.env.RESEND_API_KEY || !process.env.ADMIN_NOTIFICATION_EMAIL) return;
 
